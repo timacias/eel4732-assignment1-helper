@@ -1,25 +1,31 @@
 #!/usr/bin/env bash
 
 # Change these as needed to accomodate your directory structure
-
 : "${test_path_prefix:="assn1_testcases/testcases/case"}"
 : "${prelim_test_path_prefix:="prelim_assn1_testcases/prelim_assn1_testcases/Transformer"}"
 : "${source_dir:="src"}"
 
 # Add the names of your source files here
-
 source_files=("magic_transformer.cpp" "transformer1.cpp" "transformer2.cpp" "transformer3.cpp")
 #: "${source_files:=("magic_transformer.cpp" "transformer1.cpp" "transformer2.cpp" "transformer3.cpp")}"
 
 # If you add or remove tests, modify these
-
 : "${num_transformer_tests:=60}"
 : "${num_magic_tests=20}"
 : "${num_prelim_tests=3}"
 
 # If you wish to use a different compiler, modify this
-
 : "${CC="g++"}"
+
+: '
+Copyright © 2026 Timothy Macias
+
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.
+'
 
 ###############################################################
 
@@ -34,7 +40,7 @@ This script expects the latest provided test cases and the following source file
 
 Please change the test_path_prefix, source_dir, and source_files variables at the
  top of the script as needed to accommodate your project. This can also be done by
- passing options or command line overrides.
+ passing options or environment variables.
  For example, if your test case folders (e.g., case0, case1, etc.) are located at
  "/path/to/tests/". Set test_path_prefix to "/path/to/tests/case". For source_dir,
  simply set it to the directory where your source code is located.
@@ -56,7 +62,7 @@ Usage: ./test.sh [options]
 	-v, --verbose			Enable verbose output for options that support it
 	--version			Print the version
 
-The following variables support command line overrides:
+The following variables can be set via the user's environment:
  variable_name 			: current_value
  ----------------------------------------------
  test_path_prefix		: $test_path_prefix
