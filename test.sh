@@ -135,7 +135,7 @@ run_transformer() {
 		failed_cases+=("Transformer $2 - Case $1")
 
 		if [ "$verbose" = true ]; then
-			echo -e "\nFAILED: ${failed_cases[-1]}\n$output"
+			echo -e "\nFAILED: ${failed_cases[-1]}\n$output\n"
 		fi
 	fi
 
