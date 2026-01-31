@@ -45,7 +45,45 @@ Please change the test_path_prefix, source_dir, and source_files variables at th
  "/path/to/tests/". Set test_path_prefix to "/path/to/tests/case". For source_dir,
  simply set it to the directory where your source code is located.
 
-Usage: ./test.sh [options]
+Usage: $0 [options]
+	b, build [all]			Rebuild magic_transformer, $CC will be called directly
+					 unless a makefile is present in source_dir.
+					 If all is passed, rebuild all source files
+	c, clean			Remove all transformer executables
+	t, transformers [-v]		Test transformers 1-3
+	m, magic [-v]			Test magic_transformer
+	a, all [-v]			Run all tests (except prelim)
+	p, prelim [-v]			Run preliminary test cases
+	-t, --test [PATH]		Specify a path prefix where your test cases are located
+	-s, --source [PATH]		Specify a path where your source is located
+	-f, --file [LIST]		Specify a list of source files to compile
+					 (e.g., transformerI.c)
+	-h, --help [-v]			Print this message
+	-v, --verbose			Enable verbose output for options that support it
+	--version			Print the version
+
+For more detailed help info, run
+ $0 --help -v
+EOF
+
+	exit 0
+}
+
+print_verbose_help() {
+	cat <<EOF
+Helper script for EEL4732 assignment 1
+
+This script expects the latest provided test cases and the following source files:
+ ${source_files[@]}
+
+Please change the test_path_prefix, source_dir, and source_files variables at the
+ top of the script as needed to accommodate your project. This can also be done by
+ passing options or environment variables.
+ For example, if your test case folders (e.g., case0, case1, etc.) are located at
+ "/path/to/tests/". Set test_path_prefix to "/path/to/tests/case". For source_dir,
+ simply set it to the directory where your source code is located.
+
+Usage: $0 [options]
 	b, build [all]			Rebuild magic_transformer, $CC will be called directly
 					 unless a makefile is present in source_dir.
 					 If all is passed, rebuild all source files
@@ -214,7 +252,7 @@ while [ $# -gt 0 ]; do
 		-f|--file) build=true && build_arg="all" && parse_source_files "$@"
 			shift $?
 			;;
-		-h|--help) print_help
+		-h|--help) print_help=true
 			;;
 		-v|--verbose) verbose=true
 			;;
@@ -229,7 +267,15 @@ while [ $# -gt 0 ]; do
 done
 
 # Driver code
-if [ "$build" = true ]; then
+if [ "$print_help" = true ]; then
+
+	if [ "$verbose" = true ]; then
+		print_verbose_help
+	else
+		print_help
+	fi
+
+elif [ "$build" = true ]; then
 
 	# Check if a makefile exists
 	if [ -f "$source_dir/Makefile" ] || [ -f "$source_dir/makefile" ]; then
