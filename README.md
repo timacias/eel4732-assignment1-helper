@@ -14,7 +14,7 @@ Run tests from preliminary assignment 1: `./test.sh prelim`
 
 Specify a directory to run tests from: `./test.sh all -t "tests/case"`
 
-Only build transformerI.c and magic_transformer.c `./test.sh -f transformerI.c magic_transformer.`
+Only build transformerI.c and magic_transformer.c `./test.sh -f transformerI.c magic_transformer.c`
 ```
 Usage: ./test.sh [options]
         b, build [all]                  Rebuild magic_transformer, g++ will be called directly
