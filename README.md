@@ -3,7 +3,7 @@ A helper script for assignment 1 of Advanced Systems Programming (EEL4732)
 
 This script automates the process of building and testing your assignment, simply specify the location of your test cases and source files.
 
-### Usage
+## Usage
 Examples:
 
 Build all items in source_files and run all assignment 1 tests: `./test.sh build all && ./test.sh all`
@@ -33,7 +33,7 @@ Usage: ./test.sh [options]
         --version                       Print the version
 ```
 
-### Configuration
+## Configuration
 The 3rd - 5th columns indicate where each variable can be modified
 | Variable Name | Default Value | Top of Script | Environment Variables | Cmd Line Options |
 | - | - | - | - | - |
@@ -46,5 +46,5 @@ The 3rd - 5th columns indicate where each variable can be modified
 | num_prelim_tests | `3` | ✅ | ✅ | ❌ |
 | CC | `g++` | ✅ | ✅ | ❌ |
 
-### License
+## License
 This script is released under the GNU General Public License, version 3 or later.
