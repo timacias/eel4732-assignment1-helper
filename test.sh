@@ -183,10 +183,11 @@ run_transformer() {
 # $2 is the input file
 # $3 is the stdout file
 # $4 is the stderr file
+# $5 is the name of the test to run
 run_prelim() {
-	output=$( ./transformer"$1" < "$prelim_test_path_prefix$1/$2.txt" \
-		1> >(sort | diff - <(sort "$prelim_test_path_prefix$1/$3.txt")) \
-		2> >(sort | diff - <(sort "$prelim_test_path_prefix$1/$4.txt")) )
+	output=$( ./transformer"$1" < "$prelim_test_path_prefix$5/$2.txt" \
+		1> >(sort | diff - <(sort "$prelim_test_path_prefix$5/$3.txt")) \
+		2> >(sort | diff - <(sort "$prelim_test_path_prefix$5/$4.txt")) )
 	wait
 
 	if [ -n "$output" ]; then
@@ -336,25 +337,25 @@ elif [ "$test_prelim" = true ]; then
 
 	echo -ne "Testing Transformer 1...\r"
 	if [ "$anna" = true ]; then
-		run_prelim "I" "input" "performance" "rating"
+		run_prelim "I" "input" "performance" "rating" "1"
 	else
-		run_prelim "1" "input" "performance" "rating"
+		run_prelim "1" "input" "performance" "rating" "1"
 	fi
 	wait
 
 	echo -ne "Testing Transformer 2...\r"
 	if [ "$anna" = true ]; then
-		run_prelim "II" "input" "agent_performance" "state_performance"
+		run_prelim "II" "input" "agent_performance" "state_performance" "2"
 	else
-		run_prelim "2" "input" "agent_performance" "state_performance"
+		run_prelim "2" "input" "agent_performance" "state_performance" "2"
 	fi
 	wait
 
 	echo -ne "Testing Transformer 3...\r"
 	if [ "$anna" = true ]; then
-		run_prelim "III" "input" "agent_rating" "state_rating"
+		run_prelim "III" "input" "agent_rating" "state_rating" "3"
 	else
-		run_prelim "3" "input" "agent_rating" "state_rating"
+		run_prelim "3" "input" "agent_rating" "state_rating" "3"
 	fi
 	wait
 
