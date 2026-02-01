@@ -15,7 +15,7 @@ source_files=("magic_transformer.cpp" "transformer1.cpp" "transformer2.cpp" "tra
 : "${num_prelim_tests=3}"
 
 # If you wish to use a different compiler, modify this
-: "${CC="g++"}"
+: "${compiler="g++"}"
 
 : '
 Copyright © 2026 Timothy Macias
@@ -46,7 +46,7 @@ Please change the test_path_prefix, source_dir, and source_files variables at th
  simply set it to the directory where your source code is located.
 
 Usage: $0 [options]
-	b, build [all]			Rebuild magic_transformer, $CC will be called directly
+	b, build [all]			Rebuild magic_transformer, $compiler will be called directly
 					 unless a makefile is present in source_dir.
 					 If all is passed, rebuild all source files
 	c, clean			Remove all transformer executables
@@ -84,7 +84,7 @@ Please change the test_path_prefix, source_dir, and source_files variables at th
  simply set it to the directory where your source code is located.
 
 Usage: $0 [options]
-	b, build [all]			Rebuild magic_transformer, $CC will be called directly
+	b, build [all]			Rebuild magic_transformer, $compiler will be called directly
 					 unless a makefile is present in source_dir.
 					 If all is passed, rebuild all source files
 	c, clean			Remove all transformer executables
@@ -109,7 +109,7 @@ The following variables can be set via the user's environment:
  num_transformer_tests		: $num_transformer_tests
  num_magic_tests		: $num_magic_tests
  num_prelim_tests		: $num_prelim_tests
- CC				: $CC
+ compiler				: $compiler
 EOF
 
 	exit 0
@@ -132,10 +132,10 @@ parse_source_files() {
 build() {
 	if [ "$1" = "all" ]; then
 		for file in "${source_files[@]}"; do
-			$CC -o "${file%.*}" "$source_dir/$file"
+			$compiler -o "${file%.*}" "$source_dir/$file"
 		done
 	else
-		$CC -o magic_transformer "$source_dir/magic_transformer.c"*
+		echo $compiler -o magic_transformer "$source_dir/magic_transformer.c"*
 	fi
 
 	exit 0
