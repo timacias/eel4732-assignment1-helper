@@ -268,7 +268,9 @@ if [ "$anna" = true ]; then
 	source_files=("magic_transformer.cpp" "transformerI.cpp" "transformerII.cpp" "transformerIII.cpp")
 	echo "c: ❤️"
 
-elif [ "$print_help" = true ]; then
+fi
+
+if [ "$print_help" = true ]; then
 
 	if [ "$verbose" = true ]; then
 		print_verbose_help
