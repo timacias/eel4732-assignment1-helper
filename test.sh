@@ -135,7 +135,7 @@ build() {
 			$compiler -o "${file%.*}" "$source_dir/$file"
 		done
 	else
-		echo $compiler -o magic_transformer "$source_dir/magic_transformer.c"*
+		$compiler -o magic_transformer "$source_dir/magic_transformer.c"*
 	fi
 
 	exit 0
