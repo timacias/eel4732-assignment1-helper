@@ -7,7 +7,7 @@
 
 # Add the names of your source files here
 source_files=("magic_transformer.cpp" "transformer1.cpp" "transformer2.cpp" "transformer3.cpp")
-#: "${source_files:=("magic_transformer.cpp" "transformer1.cpp" "transformer2.cpp" "transformer3.cpp")}"
+# source_files=("magic_transformer.cpp" "transformerI.cpp" "transformerII.cpp" "transformerIII.cpp")
 
 # If you add or remove tests, modify these
 : "${num_transformer_tests:=60}"
@@ -214,12 +214,6 @@ print_results() {
 	exit 0
 }
 
-anna_setup() {
-	source_dir="."
-	source_files=("magic_transformer.cpp" "transformerI.cpp" "transformerII.cpp" "transformerIII.cpp")
-	echo "c: ❤️"
-}
-
 # Print the help menu if no args have been passed
 if [ $# -eq 0 ]; then
 	print_help
@@ -258,7 +252,7 @@ while [ $# -gt 0 ]; do
 			;;
 		--version) echo "2026.01.31" && exit 0
 			;;
-		--anna) anna_setup
+		--anna) anna=true
 			;;
 		*) echo -e "Invalid option: $1\nTry running $0 --help" && exit 1
 			;;
@@ -267,7 +261,14 @@ while [ $# -gt 0 ]; do
 done
 
 # Driver code
-if [ "$print_help" = true ]; then
+if [ "$anna" = true ]; then
+
+	source_dir="."
+	prelim_test_path_prefix="prelim_assn1_testcases/Transformer"
+	source_files=("magic_transformer.cpp" "transformerI.cpp" "transformerII.cpp" "transformerIII.cpp")
+	echo "c: ❤️"
+
+elif [ "$print_help" = true ]; then
 
 	if [ "$verbose" = true ]; then
 		print_verbose_help
@@ -308,9 +309,15 @@ elif [ "$test_transformers" = true ] || [ "$test_magic" = true ]; then
 			run_magic "$i"
 		fi
 		if [ "$test_transformers" = true ]; then
-			run_transformer "$i" "1" "input" "performance" "rating"
-			run_transformer "$i" "2" "performance" "agent_performance" "state_performance"
-			run_transformer "$i" "3" "rating" "agent_rating" "state_rating"
+			if [ "$anna" = true ]; then
+				run_transformer "$i" "I" "input" "performance" "rating"
+				run_transformer "$i" "II" "performance" "agent_performance" "state_performance"
+				run_transformer "$i" "III" "rating" "agent_rating" "state_rating"
+			else
+				run_transformer "$i" "1" "input" "performance" "rating"
+				run_transformer "$i" "2" "performance" "agent_performance" "state_performance"
+				run_transformer "$i" "3" "rating" "agent_rating" "state_rating"
+			fi
 		fi
 	done
 
@@ -326,15 +333,27 @@ elif [ "$test_transformers" = true ] || [ "$test_magic" = true ]; then
 elif [ "$test_prelim" = true ]; then
 
 	echo -ne "Testing Transformer 1...\r"
-	run_prelim "1" "input" "performance" "rating"
+	if [ "$anna" = true ]; then
+		run_prelim "I" "input" "performance" "rating"
+	else
+		run_prelim "1" "input" "performance" "rating"
+	fi
 	wait
 
 	echo -ne "Testing Transformer 2...\r"
-	run_prelim "2" "input" "agent_performance" "state_performance"
+	if [ "$anna" = true ]; then
+		run_prelim "II" "input" "agent_performance" "state_performance"
+	else
+		run_prelim "2" "input" "agent_performance" "state_performance"
+	fi
 	wait
 
 	echo -ne "Testing Transformer 3...\r"
-	run_prelim "3" "input" "agent_rating" "state_rating"
+	if [ "$anna" = true ]; then
+		run_prelim "III" "input" "agent_rating" "state_rating"
+	else
+		run_prelim "3" "input" "agent_rating" "state_rating"
+	fi
 	wait
 
 	echo -ne "                        \r"
