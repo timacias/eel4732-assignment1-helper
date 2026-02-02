@@ -3,7 +3,7 @@
 # Change these as needed to accomodate your directory structure
 : "${test_path_prefix:="assn1_testcases/testcases/case"}"
 : "${prelim_test_path_prefix:="prelim_assn1_testcases/prelim_assn1_testcases/Transformer"}"
-: "${source_dir:="src"}"
+: "${source_dir:="."}"
 
 # Add the names of your source files here
 source_files=("magic_transformer.cpp" "transformer1.cpp" "transformer2.cpp" "transformer3.cpp")
@@ -154,6 +154,9 @@ run_magic() {
 
 		if [ "$verbose" = true ]; then
 			echo -e "\nFAILED: ${failed_cases[-1]}\n$output\n"
+			echo "magic_trasnformer output:"
+			bash "$test_path_prefix$1/run_magic_transformer.sh"
+			echo -e ""
 		fi
 	fi
 }
@@ -335,6 +338,7 @@ elif [ "$test_transformers" = true ] || [ "$test_magic" = true ]; then
 
 elif [ "$test_prelim" = true ]; then
 
+	# TODO: replace code duplication with a proper array ("1", "2", "3") vs ("I" "II" "III")
 	echo -ne "Testing Transformer 1...\r"
 	if [ "$anna" = true ]; then
 		run_prelim "I" "input" "performance" "rating" "1"
